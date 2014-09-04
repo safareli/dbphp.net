@@ -1,0 +1,6 @@
+[submodule "skins/mp7"]
+	path = skins/mp7
+	url = git@github.com:hazardland/mp7.php.git
+[submodule "system"]
+	path = system
+	url = git@github.com:hazardland/system.php.git
