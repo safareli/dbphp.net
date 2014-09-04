@@ -1,0 +1,1 @@
+this folder is resvered by system to load javascripts automatically (you can disable this function).
