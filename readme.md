@@ -62,3 +62,34 @@ locale 'eng' you can place 'eng' folder in skins file and override\extend all
 the files from parent folder when locale 'eng' is active on the site.
 
 SO IN CONCLUSION TO INSTALL SOLUTION JUST CONFIGURE SQL CONNECTION AND RUN ADMIN.PHP
+
+####THOUGHTS
+What does future require from PHP framework:
+
+That learing of a framework tricks filled like you already knew how easyly this could be done.
+
+For a simple example you have to save your user object wich is instance of your user class - why not simply $database->save($user)?! hiding behind it every modern database concepts and skills.
+
+And when you want to load an instance of \user\group class by id=1? Are you thinking about $database->user->group->load(1)? When you want to load it with a custom query you are thinking about $database->user->group->load($query).
+
+And why to create table or database or part of it on some server by hand (Even with MySQL Workbanch or with other db modeling tool) when the only thing you are looking for is to write a class and work with its objects - If orm can scan your classes and create/synch tables in databases on distant servers for you automatically (upon your wish manually) while giving you full control of its every tiny process and feature customisation.
+
+Imagine a modular framework done in this manner in where 'db' module deals with db, 'ui' module deals with ui, 'user' module deals with users and some other module deals with web page construction. They keep simple structure and bring full power and full customization.
+
+In this framework form is built like this:
+$form = new \ui\form();
+$form->label('Country')->select('country',$_REQUEST['country'],$database->country->load());
+$form->submit('Save');
+
+Inside page part:
+$this->parse('errors','error',array('name',$system->user->name()));
+
+So after an year maybe I ll be ready to accept your 30 second challange.
+
+And let me leave an answer for someone who might ask why this is needed in PHP:
+
+By my opinion the MAIN DIFFERENCE between PHP enterprise alternatives and PHP itself is the lack of simple standard for big things and solutions. Zend has its own vision, Symphony has its own vision, Drupal adds its own vision while for example Microsoft has one way in .NET framework, something simillar can be stated for Oracle and JAVA while PHP still stays as a framework for developing frameworks. If PHP wants to survive in future some there will be need for tool wich will guide you through big solutions and will fill like naturally extended part of PHP. Maybe not from me but I beleive like this will arrive in future by someone of some group.
+
+db.php - orm module wich can be used without framework in any project https://github.com/hazardland/db.php
+system.php - a collection of modules for various solutions https://github.com/hazardland/system.php
+blank.php - a simple solution uniting two projects: site and admin using system.php framework https://github.com/hazardland/blank.php

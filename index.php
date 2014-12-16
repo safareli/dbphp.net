@@ -1,6 +1,6 @@
 <?php
 
-    const project = 'site';
+    const project = 'iotareader';
 
     include './config.php';
 

@@ -51,24 +51,49 @@
         define ('remote', link.'system/');
     }
 
-    function module ($name)
+    if (!defined('contact'))
     {
-        if (!isset($GLOBALS['modules']) || !is_array($GLOBALS['modules']))
+        define ('contact', $_SERVER["SERVER_ADMIN"]);
+    }
+
+    function module ($name,$file=null)
+    {
+        if ($file===null)
         {
-            $GLOBALS['modules'] = array ();
+            if (!isset($GLOBALS['modules']) || !is_array($GLOBALS['modules']))
+            {
+                $GLOBALS['modules'] = array ();
+            }
+            $GLOBALS['modules'][] = $name;
         }
-        $GLOBALS['modules'][] = $name;
-        if (file_exists(path.'modules/'.$name.'/'.$name.'.php'))
+
+        if ($file!==null && file_exists(path.'projects/'.project.'/'.$name.'/'.$file.'.php'))
+        {
+            return path.'projects/'.project.'/'.$name.'/'.$file.'.php';
+        }
+        else if ($file!==null && file_exists(path.'modules/'.$name.'/'.$file.'.php'))
+        {
+            return path.'modules/'.$name.'/'.$file.'.php';
+        }
+        else if ($file!==null && file_exists(system.$name.'/'.$file.'.php'))
+        {
+            return system.$name.'/'.$file.'.php';
+        }
+        else if ($file===null && file_exists(path.'projects/'.project.'/'.$name.'/'.$name.'.php'))
+        {
+            return path.'projects/'.project.'/'.$name.'/'.$name.'.php';
+        }
+        else if ($file===null && file_exists(path.'modules/'.$name.'/'.$name.'.php'))
         {
             return path.'modules/'.$name.'/'.$name.'.php';
         }
-        else if (file_exists(system.$name.'/'.$name.'.php'))
+        else if ($file===null && file_exists(system.$name.'/'.$name.'.php'))
         {
             return system.$name.'/'.$name.'.php';
         }
     }
 
-    function project ($name)
+    function project ($name, $file=null)
     {
         return path.'projects/'.project.'/'.$name.'.php';
     }
