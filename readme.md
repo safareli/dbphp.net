@@ -34,7 +34,10 @@ and override any file from system module. For example if there is jquery.js in s
 jquery folder and you created \modules\jquery\jquery.js then your jquery will be loaded.
 * Note some files can be overrided but some files are exended from system modules by local modules.
 * system folder can be located anywhere outside of solution dir but you will need to define
-  const system = '\path\to\system\folder\' in config file.
+```php
+const system = '\path\to\system\folder\'
+```
+in config file.
 
 ####MODULES
 [solution]\modules folder contains local solution specific modules also this folder is
@@ -77,12 +80,16 @@ And why to create table or database or part of it on some server by hand (Even w
 Imagine a modular framework done in this manner in where 'db' module deals with db, 'ui' module deals with ui, 'user' module deals with users and some other module deals with web page construction. They keep simple structure and bring full power and full customization.
 
 In this framework form is built like this:
+```php
 $form = new \ui\form();
 $form->label('Country')->select('country',$_REQUEST['country'],$database->country->load());
 $form->submit('Save');
+```
 
 Inside page part:
+```php
 $this->parse('errors','error',array('name',$system->user->name()));
+```
 
 So after an year maybe I ll be ready to accept your 30 second challange.
 
