@@ -6,9 +6,7 @@
 
 	class user extends base
 	{
-		use \facebook\user;
 		use \core\user;
-		use \cashier\user;
 	}
 
 ?>

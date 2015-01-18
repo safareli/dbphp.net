@@ -11,6 +11,8 @@
 
     error_reporting(E_ALL ^ E_NOTICE);
 
+    define ('start', microtime(true));
+
     if (!defined('config'))
     {
         define ('config', str_replace('\\','/',__DIR__).'/config/');

@@ -1,6 +1,6 @@
 <?php
 
-    const project = 'store';
+    const project = 'admin';
 
     include './config.php';
 
