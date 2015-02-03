@@ -16,8 +16,8 @@
 	//$database->debug();
 
 
-	new \core\input ('manage', 'site', true);
-	$manage = new \core\manage ($system->input->manage->value);
+    new \core\input ('manage', 'iotareader', true);
+    $manage = new \core\manage ($system->request['manage']);
 
 	if ($system->install)
 	{
