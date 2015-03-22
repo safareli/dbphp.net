@@ -1,0 +1,28 @@
+<solution>
+	dsd
+</solution>
+
+project
+<project>
+
+</globals>
+
+<project name="" title="">
+
+	<unit base="core.menu" name="main" title="Main" global="true">
+	<unit base="core.menu" name="user" global="true">
+
+	<page name="home" allow="guest">
+		<part unit="core.menu.main">
+		<part unit="user.account">
+	</page>
+
+	<menu unit="core.menu.main">
+		<item title="Home" page="home"></item>
+		<item title="Contact">
+			<item title="About Us" page="about">
+			<item title="Feedback" page="feedback">
+		</item>
+	</menu>
+
+</project>

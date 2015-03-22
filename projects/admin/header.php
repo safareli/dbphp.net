@@ -13,13 +13,15 @@
 
     if ($system->locales===false)
     {
+/*
         $database->save (new \core\locale('eng'),\db\query::insert);
         $database->save (new \core\locale('geo'),\db\query::insert);
         $database->save (new \core\locale('pol'),\db\query::insert);
 
         $system->locales();
         $database->update ();
-    }
+
+*/    }
 
     if ($system->pages===false)
     {
