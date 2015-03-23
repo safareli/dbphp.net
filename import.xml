@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <solution>
     <unit base="page.title" order="1"></unit>
     <unit base="news.route" order="2"></unit>
@@ -7,48 +9,51 @@
     <unit base="news.archive" order="6"></unit>
     <unit base="news.pick" name="feature" title="Feature" order="7"></unit>
     <unit base="text.view" order="8"></unit>
-    <unit base="menu.scope" name="main" title="Navigation" order="9"></unit>
+    <unit base="menu.scope" name="main" title="Main" order="2" global="true"></unit>
+    <unit base="core.manage" order="1" global="true"></unit>
+    <unit base="page.add" order="2"></unit>
+    <unit base="page.edit" order="3"></unit>
+    <unit base="page.list" order="4"></unit>
+    <unit base="user.users" order="5"></unit>
+    <unit base="user.groups" order="6"></unit>
+    <unit base="menu.create" order="7"></unit>
+    <unit base="menu.modify" order="8"></unit>
+    <unit base="menu.select" order="9"></unit>
+    <unit base="menu.add" order="10"></unit>
+    <unit base="menu.edit" order="11"></unit>
+    <unit base="menu.list" order="12"></unit>
+    <unit base="layout.create" order="13"></unit>
+    <unit base="layout.edit" order="14"></unit>
+    <unit base="news.storys" order="15"></unit>
+    <unit base="news.events" order="16"></unit>
+    <unit base="news.categorys" order="17"></unit>
+    <unit base="news.topics" order="18"></unit>
+    <unit base="news.picks" order="19"></unit>
+    <unit base="social.networks" order="20"></unit>
+    <unit base="text.edit" order="21"></unit>
+    <unit base="gallery.edit" order="22"></unit>
+    <unit base="gallery.albums" order="23"></unit>
+    <unit base="gallery.items" order="24"></unit>
+    <unit base="upload.fields" order="25"></unit>
+    <unit base="upload.thumbs" order="26"></unit>
+    <unit base="upload.edit" order="27"></unit>
+    <unit base="core.project" order="28"></unit>
+    <unit base="core.plug" order="29"></unit>
+    <unit base="core.unit" order="30"></unit>
+    <unit base="core.page" order="31"></unit>
+    <unit base="core.part" order="32"></unit>
+    <unit base="slider.edit" order="33"></unit>
+    <unit base="slider.type" order="34"></unit>
+    <unit base="slider.item" order="35"></unit>
+    <unit base="menu.view" name="main" title="Main" order="1" global="true"></unit>
+    <unit base="cashier.cashiers" order="38"></unit>
+    <unit base="cashier.currencys" order="39"></unit>
+    <unit base="menu.view" name="user" title="User" order="3" global="true"></unit>
+    <unit base="user.status" order="4" global="true"></unit>
 </solution>
+
 <project name="admin" title="Admin">
-    <unit base="core.manage" project="admin" order="1" global="true"></unit>
-    <unit base="page.add" project="admin" order="2"></unit>
-    <unit base="page.edit" project="admin" order="3"></unit>
-    <unit base="page.list" project="admin" order="4"></unit>
-    <unit base="user.users" project="admin" order="5"></unit>
-    <unit base="user.groups" project="admin" order="6"></unit>
-    <unit base="menu.create" project="admin" order="7"></unit>
-    <unit base="menu.modify" project="admin" order="8"></unit>
-    <unit base="menu.select" project="admin" order="9"></unit>
-    <unit base="menu.add" project="admin" order="10"></unit>
-    <unit base="menu.edit" project="admin" order="11"></unit>
-    <unit base="menu.list" project="admin" order="12"></unit>
-    <unit base="layout.create" project="admin" order="13"></unit>
-    <unit base="layout.edit" project="admin" order="14"></unit>
-    <unit base="news.storys" project="admin" order="15"></unit>
-    <unit base="news.events" project="admin" order="16"></unit>
-    <unit base="news.categorys" project="admin" order="17"></unit>
-    <unit base="news.topics" project="admin" order="18"></unit>
-    <unit base="news.picks" project="admin" order="19"></unit>
-    <unit base="social.networks" project="admin" order="20"></unit>
-    <unit base="text.edit" project="admin" order="21"></unit>
-    <unit base="gallery.edit" project="admin" order="22"></unit>
-    <unit base="gallery.albums" project="admin" order="23"></unit>
-    <unit base="gallery.items" project="admin" order="24"></unit>
-    <unit base="upload.fields" project="admin" order="25"></unit>
-    <unit base="upload.thumbs" project="admin" order="26"></unit>
-    <unit base="upload.edit" project="admin" order="27"></unit>
-    <unit base="core.project" project="admin" order="28"></unit>
-    <unit base="core.plug" project="admin" order="29"></unit>
-    <unit base="core.unit" project="admin" order="30"></unit>
-    <unit base="core.page" project="admin" order="31"></unit>
-    <unit base="core.part" project="admin" order="32"></unit>
-    <unit base="slider.edit" project="admin" order="33"></unit>
-    <unit base="slider.type" project="admin" order="34"></unit>
-    <unit base="slider.item" project="admin" order="35"></unit>
-    <unit base="menu.view" name="main" title="Main" project="admin" order="36" global="true"></unit>
-    <unit base="menu.scope" name="main" title="Main" project="admin" order="37"></unit>
-    <unit base="cashier.cashiers" project="admin" order="38"></unit>
-    <unit base="cashier.currencys" project="admin" order="39"></unit>
+
 
     <page name="login" title="Login">
     </page>
@@ -165,90 +170,23 @@
          <item name="pages" title="Pages" page="pages">
             <item name="texts" title="Texts" page="texts"></item>
             <item name="layouts" title="Layouts" page="layouts"></item>
-            <item name="texts" title="Texts" page="texts"></item>
-            <item name="layouts" title="Layouts" page="layouts"></item>
          </item>
-         <item name="menus" title="Menus" page="menus">
-            <item name="texts" title="Texts" page="texts"></item>
-            <item name="layouts" title="Layouts" page="layouts"></item>
-            <item name="texts" title="Texts" page="texts"></item>
-            <item name="layouts" title="Layouts" page="layouts"></item>
-         </item>
+         <item name="menus" title="Menus" page="menus"></item>
          <item name="modules" title="Modules" page="news">
             <item name="news" title="News" page="news"></item>
             <item name="upload" title="Upload" page="upload"></item>
             <item name="social" title="Social" page="social"></item>
             <item name="gallery" title="Gallery" page="gallery"></item>
             <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
          </item>
-         <item name="users" title="Users" page="users">
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-            <item name="news" title="News" page="news"></item>
-            <item name="upload" title="Upload" page="upload"></item>
-            <item name="social" title="Social" page="social"></item>
-            <item name="gallery" title="Gallery" page="gallery"></item>
-            <item name="sliders" title="Sliders" page="sliders"></item>
-         </item>
+         <item name="users" title="Users" page="users"></item>
          <item name="system" title="System" page="plugs">
-            <item name="plugs" title="Plugs" page="plugs"></item>
-            <item name="units" title="Units" page="units"></item>
-            <item name="parts" title="Pages" page="parts"></item>
-            <item name="projects" title="Projects" page="projects"></item>
-            <item name="plugs" title="Plugs" page="plugs"></item>
-            <item name="units" title="Units" page="units"></item>
-            <item name="parts" title="Pages" page="parts"></item>
-            <item name="projects" title="Projects" page="projects"></item>
-            <item name="plugs" title="Plugs" page="plugs"></item>
-            <item name="units" title="Units" page="units"></item>
-            <item name="parts" title="Pages" page="parts"></item>
-            <item name="projects" title="Projects" page="projects"></item>
             <item name="plugs" title="Plugs" page="plugs"></item>
             <item name="units" title="Units" page="units"></item>
             <item name="parts" title="Pages" page="parts"></item>
             <item name="projects" title="Projects" page="projects"></item>
          </item>
          <item name="cashiers" title="Cashier" page="cashiers">
-            <item name="cashiers" title="Cashiers" page="cashiers"></item>
-            <item name="currencys" title="Currencys" page="currencys"></item>
             <item name="cashiers" title="Cashiers" page="cashiers"></item>
             <item name="currencys" title="Currencys" page="currencys"></item>
          </item>
@@ -258,10 +196,6 @@
 
 <project name="site" title="Site">
 
-    <unit base="menu.view" name="main" title="Main" project="site" order="1" global="true"></unit>
-    <unit base="menu.scope" name="main" title="Main" project="site" order="2" global="true"></unit>
-    <unit base="menu.view" name="user" title="User" project="site" order="3" global="true"></unit>
-    <unit base="user.status" project="site" order="4" global="true"></unit>
 
     <page name="home" title="Home">
     </page>
@@ -281,3 +215,4 @@
     </menu>
 
 </project>
+

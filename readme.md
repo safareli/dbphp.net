@@ -1,5 +1,5 @@
-#blank.php is a blank copy of cms powered by system.php and db.php frameworks
-###By itself cms represents nothing then directory structure and couple of php scripts
+# blank.php is a blank copy of cms powered by system.php and db.php frameworks
+### By itself cms represents nothing then directory structure and couple of php scripts
 
 ###THIS IS THE SHORTEST INSTALLATION+INTRO GUIDE
 
