@@ -1,0 +1,14 @@
+<h1>What is php doc comments?</h1>
+<p>It is official documentation form supported by native PHP API. With php doc comments you can document your classes, properties and methods and other things not related to classes. For example:</p>
+<pre><code class="language-php">/**
+* @var \user\group
+*/
+public $group;</code></pre>
+<p>@var tells PHP that following property is type of class located in namespace user and called group (\user\group). Unlike regular comments in PHP, php doc comments first line must begin with</p>
+<pre><code class="language-php">/**</code></pre>
+<p>Must be followed with next lines containing special keywords which describe your subject to be documented. Line must begin with *.</p>
+<p>And php doc comments section must be closed like regular comments section:</p>
+<pre><code class="language-php">*/</code></pre>
+<p>Spaces tabs and other things does not matter. Only matters php doc comments comment opening.</p>
+<p>db.php uses php doc comments to fetch additional informations about properties and classes.</p>
+<p>Get more info at <a href="http://php.net/manual/en/reflectionclass.getdoccomment.php">http://php.net/manual/en/reflectionclass.getdoccomment.php</a></p>

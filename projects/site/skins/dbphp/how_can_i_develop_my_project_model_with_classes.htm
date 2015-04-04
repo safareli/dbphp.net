@@ -1,0 +1,77 @@
+<h1>How can I develop my project model with classes?</h1>
+<p>I assume that you will handle your controllers and views by yourself but what you need for using db.php is to have model in classes. First you must understand what is core of your project than you must describe it in classes.</p>
+<p>Somewhere in your model you can meet lines like this:</p>
+<pre><code class="language-php">namespace user;
+class user
+{
+    public $id;
+    public $login;
+    public $password;
+    public $email;
+    public $first;
+    public $last;
+    public $birth;
+    /**
+    * @var \user\group
+    */
+    public $group;
+    public function __construct ($login=null, $email=null, $first=null, $last=null)
+    {
+        $this-&gt;login = $loginl
+        $this-&gt;email = $email;
+        $this-&gt;first = $first;
+        $this-&gt;last = $last;
+    }
+    public function name ()
+    {
+        if ($this-&gt;first &amp;&amp; $this-&gt;last)
+        {
+            return $this-&gt;first.' '.$this-&gt;last.
+        }
+        else if ($this-&gt;first)
+        {
+            return $this-&gt;first;
+        }
+        else if ($this-&gt;last)
+        {
+            return $this-&gt;last;
+        }
+        else if ($this-&gt;email)
+        {
+            return $this-&gt;email
+        }
+        else
+        {
+            return $this-&gt;login;
+        }
+    }
+    public function age ()
+    {
+        return intval((time()-strtotime($this-&gt;birth))/(3600*24*365));
+    }
+    public function password ($value=null)
+    {
+        $this-&gt;password = md5 ($value);
+    }
+}
+
+class group
+{
+    public $id;
+    public $name;
+    public function __construct ($name=null)
+    {
+        $this-&gt;name = $name;
+    }
+}</code></pre>
+<p>So we did a user class in namespace user. Address of class is \user\user. This code is portion of model. User class has interesting method $user-&gt;name(). If you look closer it returns first name and last name if they are given. Or returns only first name if only first name given or returns email adress if it is given or at least returns user login. Model is nice place for such functionality.</p>
+<p>Also we have another class 'group' in 'user' namespace. Adress of a class is \user\group. Notice that user-&gt;group has comment @var \user\group above pointing PHP that it represents instance of class \user\group.</p>
+<p>Let me show you <strong>usage of that classes</strong> in your actual work probably at some point in your controller portion of code:</p>
+<pre><code class="language-php">$user = new \user\user ('administrator', 'John', 'Smith', 'john@company.com');
+$user-&gt;birth = '1985-07-17';
+
+echo $user-&gt;name()." is ".$user-&gt;age(); //Assume you are reading this in 2015</code></pre>
+<p>Outputs:</p>
+<pre><code class="language-php">John Smith is 30</code></pre>
+<p>What I try here is to give you an idea what and why can be placed in model. In everday code I use for example $user-&gt;name() and $user-&gt;age(). But functionality of it resides back in my model code and used for example in my other projects also.</p>
+<p>I assume you now know what is <strong>model</strong> and how to make it with <strong>classes</strong> and <strong>namespaces</strong>.</p>

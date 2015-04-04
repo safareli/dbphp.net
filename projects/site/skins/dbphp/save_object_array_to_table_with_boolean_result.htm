@@ -1,0 +1,22 @@
+<h1>Save object array to table with boolean result</h1>
+<pre><code class="language-php">bolean $database-&gt;path-&gt;to-&gt;class (array $objects [, integer $action=null]);</code></pre>
+<p>If you pass an array of same type objects to their class handler they will be inserted or updated individually. If any of them fails save process will not be interrupted but result will be false. If everyone succeeds than result will be true. If you want to force insert given array than pass second parameter also with value \db\query::insert.</p>
+<p>Example:</p>
+<pre><code class="language-php">$users = array ();
+$users[] = new user ('John First');
+$users[] = new user ('John Second');
+$users[] = new user ('John Third');
+
+if ($database-&gt;user-&gt;save($users))
+{
+    echo "all users saved";
+    foreach ($users as $user)
+    {
+        echo $user-&gt;name." new id is ".$user-&gt;id;
+    }
+}
+else
+{
+    echo "something went wrong while saving users";
+}</code></pre>
+<p>For basic class handler save method behavior see <a href="{project_link}/save-single-object-to-table/">Save single object to table</a>.</p>

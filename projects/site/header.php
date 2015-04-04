@@ -2,7 +2,7 @@
 
     //include module ('[name]');
 
-	$system->skin->name = 'default';
+	$system->skin->name = 'dbphp';
 
     //$database->debug();
 

@@ -1,0 +1,8 @@
+<h1>Load affecting default load behavior or changing table default query</h1>
+<p>Every table handler has built in query object. When you call it without passing query handler uses built in query to process your request. For example if you want to change default behavior of load without creating query object:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;load ();</code></pre>
+<p>Let us say you want to chane default order field for all load calls of products, than you should:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;query-&gt;order('name');</code></pre>
+<p>After this where ever you call load result will be ordered by name, default query is active even when you are using \db\by</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;load (\db\by('type',$type));</code></pre>
+<p>For more information about queries see: <a href="{project_link}/query-where/">Query where</a>, <a href="{project_link}/query-order/">Query order</a>, <a href="{project_link}/query-limit/">Query limit</a></p>

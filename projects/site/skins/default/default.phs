@@ -1,6 +1,0 @@
-<?php
-
-    //This file is loaded after same name skin's default.php
-    //You can override/extend skin part definitions of base skin
-
-?>

@@ -1,0 +1,94 @@
+<h1>Showcase</h1>
+<p>Imagine you have a simple user class namespace in 'user.php'</p>
+<pre><code class="language-php">namespace user;
+
+class user
+{
+    public $id
+    public $name;
+    /**
+    * @var date
+    */
+    public $birth;
+    /**
+    * @var \user\group
+    */
+    public $group;
+    public function __construct ($name=null, $birth=null, $group=null)
+    {
+        $this-&gt;name = $name;
+        $this-&gt;birth = $birth;
+        $this-&gt;group = $group;
+    }
+    public function age ()
+    {
+        return intval((time()-strtotime($this-&gt;birth))/(3600*24*365));
+    }
+}
+
+class group
+{
+    public $id;
+    /**
+    * length 32
+    */
+    public $name;
+    public function __construct ($name=null)
+    {
+        $this-&gt;name = $name;
+    }
+}</code></pre>
+<p>And imagine you have simple 'action.php'</p>
+<pre><code class="language-php">
+    include './db.php';
+
+    //init database with simple db connection link (multi links and multi databases
+    //are also possible)
+    $database = new \db\database ('mysql:host=127.0.0.1', 'test', 'root', '1234');
+
+    //add single class to database to handle
+    $database-&gt;add ('\user\user');
+
+    //or scan and add every class in namespace
+    $database-&gt;scan ('\user');
+
+    //update database means in this case:
+    //1. create database 'test' if not exists
+    //2. create table for class \user\user and class \user\group if not exists
+    //   or if they exists update its structure if developer changed something
+    //   in class definition
+    $database-&gt;update ();
+
+    //from this now you are ready to work with \user\user and \user\group classes
+
+    //create and save simple group called 'Administrator'
+    $administrator = $database-&gt;save (new \user\group ('Administartor'));
+
+    //create user 'John' with group 'Administrator'
+    $database-&gt;save (new \user\user ('John','1985-12-15',$administrator));
+
+    //so if you want to load group 'Administrator' and you know that its id is 1
+    $administrator = $database-&gt;user-&gt;group-&gt;load (1);
+    //address user-&gt;group repeats address of class with namespace \user\group
+
+    //so user handler address will be user-&gt;user as it's class is \user\user
+    $user = $database-&gt;user-&gt;user-&gt;load (1);
+
+    //and now relation happened
+    //as in class definition user::group property has doc annotation @var \user\group
+    //this means that user::group property is related to \user\group class
+    //so if we:
+
+    echo $user-&gt;group-&gt;name;
+
+    //we will have 'Administrator' as output result
+
+    //now if we rename user's name
+    $user-&gt;name = 'Mark';
+
+    $database-&gt;save ($user);
+    //we now updated user record in database
+
+    $database-&gt;delete ($user);
+    //we now deleted user
+</code></pre>

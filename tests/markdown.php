@@ -53,11 +53,15 @@
 	{
 		if ($next!=null)
 		{
-			$map[$page['name']]['text'] = between(str_repeat('#',$page['level']+1).' '.$page['title'], str_repeat('#',$next['level']+1).' '.$next['title'], $readme);
+			$text = trim(between(str_repeat('#',$page['level']+1).' '.$page['title'], str_repeat('#',$next['level']+1).' '.$next['title'], $readme));
 		}
 		else
 		{
-			$map[$page['name']]['text'] = after(str_repeat('#',$page['level']+1).' '.$page['title'], $readme);
+			$text = trim(after(str_repeat('#',$page['level']+1).' '.$page['title'], $readme));
+		}
+		if ($text)
+		{
+			$map[$page['name']]['text'] = '# '.$page['title']."\n".$text;
 		}
 		$next = $page;
 	}
@@ -65,9 +69,16 @@
 	$parsedown = new Parsedown();
 
 	$skin = str_replace("\\",'/',__DIR__).'/pages/';
+	$skin = path.'projects/site/skins/dbphp/';
 	foreach ($map as &$page)
 	{
 		$page['text'] = $parsedown->text ($page['text']);
+		$text = new \tool\text ($page['text']);
+		while ($text->next('<a href="#','">'))
+		{
+			$text->result = '<a href="{project_link}/'.between($text->open,$text->close,$text->result).'/">';
+			debug ($text->result);
+		}
 		//debug ($page['link']);
 		if ($page['text'])
 		{
@@ -93,7 +104,10 @@
 		{
 			$project['pages'][$page['name']] = array ('name'=>$page['name'],'link'=>$page['link'],'title'=>$page['title']);
 		}
-		$project['menus']['menu.view.manual']['items'][$page['name']] = array ('name'=>$page['name'],'title'=>$page['title'],'parent'=>$page['parent'], 'page'=>$page['name']);
+		if ($page['parent']==null || $page['text'])
+		{
+			$project['menus']['menu.view.manual']['items'][$page['name']] = array ('name'=>$page['name'],'title'=>$page['title'],'parent'=>$page['parent'], 'page'=>$page['name']);
+		}
 	}
 
 	include module ('menu');

@@ -1,0 +1,47 @@
+<h1>Welcome to db.php: A full funcitional but simple PHP ORM</h1>
+
+<p>db.php is object relational mapper project for PHP. In difference with other php orm alternatives db.php delivers simpliest intuitive api while stays fully functional and performance optimazed. Also db.php offers ability to automatically generate and synchronize tables and databases based on class model.</p>
+
+<p>db.php is called like that because it represents just a single db.php file. The only thing you need to do for installing db.php is to include db.php. Or just require it with composer:</p>
+
+<pre><code>composer require hazardland/db:dev-master</code></pre>
+
+<p>This is how class is handler is registered in db.php:</p>
+<pre><code>$database->add ('\user\group');
+</code></pre>
+
+<p>This is how handlers for all classes under namespace are registered in db.php:</p>
+<pre><code>$database->scan ('\user');
+</code></pre>
+
+<p>This is how databases, tables and fields are created or updated for registered classes:</p>
+<pre><code>$database->update ();
+</code></pre>
+
+<p>This is how class object is saved in db.php:</p>
+<pre><code>$database->save (new \user\group());
+</code></pre>
+
+<p>This is how class object is saved in db.php in another way:</p>
+<pre><code>$database->user->group->save (new \user\group());
+</code></pre>
+
+<p>This is how class object is loaded by id:</p>
+<pre><code>$database->user->group->load (1);
+</code></pre>
+
+<p>This is how class object is deleted by id:</p>
+<pre><code>$database->user->group->delete (1);
+</code></pre>
+
+<p>This is how class object is updated:</p>
+<pre><code>$database->save ($group);
+</code></pre>
+
+<p>Or:</p>
+<pre><code>$database->user->group->save ($group);
+</code></pre>
+
+<p>Of course this is not all as db.php offers to control every tiny aspect. Before reading manual you can first checkout our short <a href="{project_url}/showcase/">showcase</a>.</p>
+
+<p>Or if you are new in orm field you should start reading article about <a href="{project_url}/what-is-mvc-what-is-model-view-controller-pattern/">What is ORM?</a></p>

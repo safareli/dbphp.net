@@ -1,0 +1,45 @@
+<?php
+
+
+    $skins['menu.view.main'] = "
+    <ul class='top-nav'>
+    {items}
+    </ul>
+    ";
+
+    $skins['menu.view.main.item'] = "
+    <li><a href='{link}'>{title}</a></li>
+    ";
+
+    $skins['menu.view.main.item_active'] = "
+    <li><a href='{link}' class='active'>{title}</a></li>
+    ";
+
+    $skins['menu.view.manual'] = "
+    <ul>
+    {items}
+    </ul>
+    ";
+
+    $skins['menu.view.manual.item'] = "
+    <li><a href='{link}'>{title}</a>
+    {items}
+    </li>
+    ";
+
+    $skins['menu.view.manual.item_active:1'] = "
+    <li class='active'><a href='{link}'>{title}</a>
+    {items}
+    </li>
+    ";
+
+    $skins['menu.view.manual.item_items'] = "
+    <ul>
+    {items}
+    </ul>
+    ";
+
+    $skins['text.view'] = "
+    {value}
+    ";
+?>

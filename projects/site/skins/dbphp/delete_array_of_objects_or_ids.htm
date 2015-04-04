@@ -1,0 +1,7 @@
+<h1>Delete array of objects or ids</h1>
+<pre><code class="language-php">$database-&gt;path-&gt;to-&gt;class-&gt;delete (array $objects);</code></pre>
+<p>Example:</p>
+<pre><code class="language-php">$product = $database-&gt;shop-&gt;product-&gt;load (12);
+
+$database-&gt;shop-&gt;product-&gt;delete (array($product,13,14));</code></pre>
+<p>Products with ids 12,13,14 will be deleted.</p>

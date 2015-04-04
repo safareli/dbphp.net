@@ -1,0 +1,28 @@
+<h1>Map namespace classes to tables</h1>
+<p>If we have many classes in namespace we can add them using just one line of code:</p>
+<pre><code class="language-php">namespace shop;
+
+class product
+{
+    ....
+}
+class cart
+{
+    ....
+}
+class cost
+{
+    ....
+}</code></pre>
+<pre><code class="language-php">$database-&gt;scan ('\namespace');</code></pre>
+<p>Or</p>
+<pre><code class="language-php">$database-&gt;scan ('\\namespace');</code></pre>
+<p>Or</p>
+<pre><code class="language-php">$database-&gt;scan ('.namespace');</code></pre>
+<p>In this case if we scan:</p>
+<pre><code class="language-php">$database-&gt;scan ('.shop');</code></pre>
+<p>We will have following class table handlers:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product
+$database-&gt;shop-&gt;cart
+$database-&gt;shop-&gt;cost</code></pre>
+<p>Class table handler is an instance of \db\table it contains information for mapping class to actual database table and api for accessing class table data. For further exploration of class table handlers see sample at <a href="https://github.com/hazardland/db.php/blob/master/samples/003.class.php">https://github.com/hazardland/db.php/blob/master/samples/003.class.php</a></p>

@@ -1,0 +1,13 @@
+<h1>Best practices for declaring class</h1>
+<p>It is best you declare your class constructors without requiring parameters. Therefore with default parameters otherwise errors will be generated.</p>
+<p>For example if you have user class constructor and you wish to pass some parameters to it, declare constructor like this:</p>
+<pre><code class="language-php">class user
+{
+    ...
+    public function __construct ($email=null, $name=null)
+    {
+        ....
+    }
+}</code></pre>
+<p>In this declaration all constructor parameters have their defaults and it gives db.php an ability to initialize object of user without passing parameters like this:</p>
+<pre><code class="language-php">new user ();</code></pre>
