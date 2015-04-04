@@ -1,0 +1,25 @@
+<p>Here begins most interesting part of db.php as we have setted up desired connection(s) now we need to make database know about our class(es).</p>
+<p>To add single &quot;class to table&quot; handler or so called &quot;class handler&quot; you have to:</p>
+<pre><code class="language-php">$database-&gt;add (string $class);</code></pre>
+<pre><code class="language-php">$database-&gt;add('\path\to\class');</code></pre>
+<p>Or</p>
+<pre><code class="language-php">$database-&gt;add('\\path\\to\\class');</code></pre>
+<p>Also you can specify class path by dots:</p>
+<pre><code class="language-php">$database-&gt;add('path.to.class');</code></pre>
+<p>First dot in string makes no sense but you also can:</p>
+<pre><code class="language-php">$database-&gt;add('.path.to.class');</code></pre>
+<p>For example if we have:</p>
+<pre><code class="language-php">namespace shop;
+
+class product
+{
+    ....
+}</code></pre>
+<p>We can:</p>
+<pre><code class="language-php">$database-&gt;add ('shop.product');</code></pre>
+<p>We added class handler to orm now we need to access class handler.</p>
+<p>After adding class to database we can access class table handler by</p>
+<pre><code class="language-php">$database-&gt;path-&gt;to-&gt;class</code></pre>
+<p>In \shop\product example class case we will access it like this:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product</code></pre>
+<p><em>Note</em>: The only reserved namespace name is 'context' it means you must not have classes in namespace named 'context' or class without namespace named 'context'. $database-&gt;context is used by database object for storing various data such is conenction links, table handlers, defined locales, varius cache handlers and so on.</p>

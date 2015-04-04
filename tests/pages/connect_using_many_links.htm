@@ -1,0 +1,10 @@
+<p>First init database</p>
+<pre><code class="language-php">$database = new \db\database ();</code></pre>
+<p>Or first init database with default database name:</p>
+<pre><code class="language-php">$database = new \db\database ('my_default_db_name');</code></pre>
+<p>It is assumed that this database is located on first connection link you ever establish (Or even located on any link for tables without database name specification).</p>
+<p>Than add links as many as you wish:</p>
+<pre><code class="language-php">$database-&gt;link (new \db\link ('my_mysql_link', 'mysql:host=127.0.0.1', 'my_user', 'my_pass'));
+$database-&gt;link (new \db\link ('my_odbc_link', 'odbc:my_odbc_alias', 'my_user', 'my_pass'));</code></pre>
+<p>**Note that you can specify custom links to tables also custom databases to tables. By default table without link specification is located on default link. Table without database specification is located in default database.</p>
+<p>Additional link usage samples <a href="https://github.com/hazardland/db.php/blob/master/samples/002.link.php">https://github.com/hazardland/db.php/blob/master/samples/002.link.php</a></p>

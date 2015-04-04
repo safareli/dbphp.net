@@ -1,0 +1,12 @@
+<p>Simple way to start is to specify server, database, username and password to database constructor.</p>
+<pre><code class="language-php">$database = new \db\database(string $hostname, string $database, string $username, string $password);</code></pre>
+<pre><code class="language-php">$database = new \db\database('mysql:host=127.0.0.1', 'my_db', 'root', '1234');</code></pre>
+<p><strong>hostname</strong>
+Is first parameter confusing? It is actually a data source name. db.php uses <strong>PDO</strong> as default link provider so first parameter is actually PDO data source name string.</p>
+<p><strong>database</strong>
+Second parameter is <strong>database name</strong> and used by <strong>db.php</strong> to locate your tables on this connection.</p>
+<p><strong>username</strong>
+This is what you think.</p>
+<p><strong>password</strong>
+Same applies here.</p>
+<p>This was the simpliest connection ever db.php can handle but remember you can have multiple connections to multiple servers and multiple databases same time.</p>

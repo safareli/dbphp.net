@@ -1,0 +1,33 @@
+<p>Before using queries whe need to now about few helper functions:</p>
+<pre><code class="language-php">namespace shop
+{
+    class product
+    {
+        public $id;
+        public $name;
+    }
+}
+$database-&gt;add ('shop.product');
+$database-&gt;update ();</code></pre>
+<p>In this case table with name 'shop_product' will be created with fields 'id' and 'name'. Full table name for class looks like <code>my_db</code>.<code>shop_product</code> and full field name for property 'name' looks like <code>my_db</code>.<code>shop_product</code>.<code>name</code>.</p>
+<p>In custum queries you will need to use full table and field names to avoid ambigous field name errors.</p>
+<h5>\db\table::name</h5>
+<p>To get <strong>table name</strong> use:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;table();
+//Outputs something like `my_db`.`shop_product`</code></pre>
+<p>Or:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;name();
+//Outputs something like `my_db`.`shop_product`</code></pre>
+<h5>\db\table::field</h5>
+<p>To get <strong>field name</strong> use:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;field('name');
+//Outputs something like `my_db`.`shop_product`.`name`</code></pre>
+<p>The <strong>name</strong> parameter for 'field' function must be property name, this means if you have public $login than property name is 'login' and to get full field name for login use $database-&gt;path-&gt;to-&gt;table-&gt;field('login')</p>
+<h5>\db\table::value</h5>
+<p><strong>value</strong> function gerenates something useful also:</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;value('name','Milk');
+//`my_db`.`shop_product`.`name`='Milk'</code></pre>
+<h5>\db\string</h5>
+<p>To <strong>escape string</strong> use function \db\string. Anything that does not go through the db.php functions like custom strings and comes from user input and used in queries must be escaped.</p>
+<pre><code class="language-php">$database-&gt;shop-&gt;product-&gt;field('cost')."&gt;".\db\string($_REQUEST['cost']);
+//`my_db`.`shop_product`.`name`&gt;5.1</code></pre>

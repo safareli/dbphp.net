@@ -1,0 +1,10 @@
+<p>With two parameters from and count</p>
+<pre><code class="language-php">$query-&gt;limit(integer $from, integer $count);</code></pre>
+<p>With only one parameter count</p>
+<pre><code class="language-php">$query-&gt;limit(integer $count);</code></pre>
+<p>Example:</p>
+<pre><code class="language-php">$query-&gt;limit (10, 30);</code></pre>
+<p>Generates <em>limit 10, 30</em></p>
+<p>Example:</p>
+<pre><code class="language-php">$query-&gt;limit (30);</code></pre>
+<p>Generates <em>limit 30</em></p>

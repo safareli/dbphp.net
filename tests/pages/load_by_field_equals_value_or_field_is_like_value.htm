@@ -1,0 +1,14 @@
+<p>To load object by custom field value:</p>
+<pre><code class="language-php">$database-&gt;path-&gt;to-&gt;class-&gt;load (\db\by(string $field1, mixed $value1)-&gt;by(string $field2, mixed $value2)-&gt;in(string $field3, mixed $value));</code></pre>
+<p>\db\by and \db\in create instance of \db\by class which has to methods \db\by:by and \db\by::in each method returns instance of itself therefore you can add another criteria by calling again method 'in' or method 'by'. Table handler than generates a query with cross criterias with 'AND'.</p>
+<p>For example:</p>
+<pre><code class="language-php">$database-&gt;user-&gt;user-&gt;load (\db\by('login','administrator')-&gt;by('password','1234')-&gt;in('group',1));</code></pre>
+<p>Will generate query something like this:</p>
+<pre><code>... where login='administrator' and password='1234' and group like '%|1|%'</code></pre>
+<p>'in' method generates 'like' statement for enumerated fields which in db.php are stored like '|value1|value2|value3|'. Enumerated fields are subject of further reading and we will not describe it here in details.</p>
+<p><strong>value</strong> parameter can also be objects or boolean values except of regular strings:</p>
+<pre><code class="language-php">$group = $database-&gt;user-&gt;group-&gt;load (1);
+
+$database-&gt;user-&gt;user-&gt;load (\db\by('group',$group)-&gt;by('active',true));</code></pre>
+<p>Each string is escaped and protected from injection.</p>
+<p>Dont get confused because of \db\ prefix in \db\by function call followed by simply -&gt;by in \db\by()-&gt;by. \db\ is namespace prefix and it is necessary because by function resides in db namespace.</p>

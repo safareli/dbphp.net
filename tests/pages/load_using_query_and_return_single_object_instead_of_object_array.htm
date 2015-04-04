@@ -1,0 +1,3 @@
+<p>When using \db\query or \db\by by default \db\table returns array of objects. If you want to get only first object than call:</p>
+<pre><code class="language-php">$database-&gt;path-&gt;to-&gt;table-&gt;load ($query, true);</code></pre>
+<p>Second parameter of load notifies \db\table if user wants single object as result or array. True means single false means array. Default is false.</p>

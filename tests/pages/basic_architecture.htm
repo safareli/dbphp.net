@@ -1,0 +1,8 @@
+<p>To work with orm you will need an instance of class \db\database. It stores connection links (represented by default with \db\link class) and table handlers for classes. Any class you are willing to map table in actual database must have its own handler. Class handler is represented by an instance of \db\table. By itself class properties have its own handlers represented by \db\field and instances of it are stored in table handler. db.php basic usage contains following important steps:</p>
+<ol>
+<li>Initialize \db\database, establish connections to data source(s)/sql server(s).</li>
+<li>Initialize desired class(es) handlers.
+[3. Optionally autmatically/manually update/create database(s)/table(s)/field(s) on servers you are connected.</li>
+<li>Using proper table handler save/load/delete/query objects of your classes in actual database tables.</li>
+</ol>
+<p>So next thing we are going to learn is how to initialize \db\database and establish connection(s).</p>

@@ -1,0 +1,72 @@
+<p><strong>MVC</strong> stands for <strong>Model View Controller</strong>. If you heard about it before but still dont know what it is you might be afraid of it.</p>
+<p>But MVC is nothing than bunch of terms describing best practices how code in big projects should be organized for not getting lost in them.</p>
+<p>If you have developed at least some kind of web application you already have used <strong>MVC</strong> concepts withought knowing it. I could tell you that <strong>Controller</strong> is a portion of code which displays <strong>Views</strong> to user and also receives <strong>input</strong> from user, <strong>processes</strong> it using <strong>Model</strong> and than decides in what <strong>View</strong> to parse <strong>output</strong> data but nobody understands sentences like that.</p>
+<p>Therefore I ll show you an example. (<em>Note that while using db.php our goal is only knowing how to architect Model</em>)</p>
+<p>View is very simple thing. Dont get anything what you read here literally I m trieng to come out with the simpliest examples.</p>
+<p>Imagine a task. We must build a product page where user will purchase product.</p>
+<p>We have two html files: product.html and success.html</p>
+<h4>product.html</h4>
+<pre><code class="language-html">&lt;h1&gt;{product_name}&lt;/h1&gt;
+&lt;a href="{project_link}?page=purchase&amp;product={product_id}"&gt;
+    Buy product
+&lt;/a&gt;</code></pre>
+<h4>purchase.html</h4>
+<pre><code class="language-html">You have successfully purchased {product_name}</code></pre>
+<p>This are two stupid static html files and we can totally consider them as <strong>views</strong>. In {product_name} there goes actual product name. When user clicks &quot;Buy product&quot; we will have page and product variables incoming in our script. Congratulations you know what views are !</p>
+<p>But how to use that views in actual task? Here we need a controller. Let us assume we are so stupid we build our entire site php script in only index.php?</p>
+<h4>index.php</h4>
+<pre><code class="language-php">if ($_REQUEST['page']=='product')
+{
+    $product = $database-&gt;product-&gt;load ($_REQUEST['product']);
+
+    $output = array ();
+    $output['project_link'] = $_SERVER['REMOTE_ADDR'];
+    $output['product_name'] = $product-&gt;name;
+    $output['product_id'] = $product-&gt;id;
+
+    $view = file_get_contents ('./product.html');
+    foreach ($output as $field = &gt; $value)
+    {
+        $view = str_replace ('{'.$field.'}', $value);
+    }
+    echo $view;
+    exit;
+}
+else if ($_REQUEST['page']=='purchase')
+{
+    $product = $database-&gt;product-&gt;load ($_REQUEST['product']);
+
+    ### MAGIC HAPPENS HERE !
+    $product-&gt;buy();
+
+    $output = array ();
+    $output['project_link'] = $_SERVER['REMOTE_ADDR'];
+    $output['product_name'] = $product-&gt;name;
+    $output['product_id'] = $product-&gt;id;
+
+    $view = file_get_contents ('./purchase.html');
+    foreach ($output as $field = &gt; $value)
+    {
+        $view = str_replace ('{'.$field.'}', $value);
+    }
+    echo $view;
+    exit;
+
+}</code></pre>
+<p>So this is <strong>Controller</strong>. If you look closer it contains two sections. They are almost identical. One parses page &quot;product&quot; and another parses page &quot;purchase&quot;. That sections are almost identical except in section &quot;purchase&quot; user buys a product while in section &quot;product&quot; user views product page. View variables like {product_name} and {product_id} are replaced using simple str_replace function. Views files are loaded simply by file_get_contents. And line $product-&gt;buy() actually does what it says. But where is that method code called <strong>buy</strong>?</p>
+<h4>shop.php</h4>
+<pre><code>namespace shop
+{
+    class proudct
+    {
+        public $id;
+        public $name;
+        public function buy ()
+        {
+            /*
+            Here you should imagine the code where actual happens buy
+            */
+        }
+    }
+}</code></pre>
+<p>This file is <strong>Model</strong>. If that does not make sense for you I strongly recommend you to sell burgers.</p>

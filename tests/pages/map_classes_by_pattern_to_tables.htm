@@ -1,0 +1,13 @@
+<pre><code class="language-php">$database-&gt;scan (string $string);</code></pre>
+<p>$database-&gt;scan also adds any class whose full name (\path\to\class) begins on given $string</p>
+<p>If we have:</p>
+<pre><code class="language-php">\animals\wolf
+\ant
+\animation</code></pre>
+<p>Than</p>
+<pre><code class="language-php">$database-&gt;scan ('.ani');</code></pre>
+<p>Or</p>
+<pre><code class="language-php">$database-&gt;scan ('\\ani');</code></pre>
+<p>Or</p>
+<pre><code class="language-php">$database-&gt;scan ('\ani');</code></pre>
+<p>Will add \animals\wolf and \animation classes table handlers to orm.</p>

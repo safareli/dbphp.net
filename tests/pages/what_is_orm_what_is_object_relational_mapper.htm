@@ -1,0 +1,50 @@
+<p>In previous chapter we described classes in your model. Here we will copy only property declaration part of it:</p>
+<pre><code class="language-php">namespace user;
+class user
+{
+    public $id;
+    public $login;
+    public $password;
+    public $email;
+    public $first;
+    public $last;
+    public $birth;
+    /**
+    * @var \user\group
+    */
+    public $group;
+    ...
+    ...
+    ...
+}
+
+class group
+{
+    public $id;
+    public $name;
+    public function __construct ($name=null)
+    {
+        $this-&gt;name = $name;
+    }
+    ...
+    ...
+    ...
+}</code></pre>
+<p>Now if you want to use objects of this classes in your everyday code some of this objects need to be saved in database for later usage. Some of them need to be loaded some of them need to be deleted.</p>
+<p>And these tasks are handled by ORM. ORM maps your objects directly to table records and field values almost literally speaking.</p>
+<p>To be clear ORM's do things like this (Assuming we have some ORM in variable $database):</p>
+<pre><code class="language-php">$group = new \user\group('Administrators');
+
+$database-&gt;save ($group);
+
+$user = new \user\user ('admin', 'John', 'Smith');
+$user-&gt;group = $group;
+
+$database-&gt;save ($user);
+
+$john = $database-&gt;user-&gt;user-&gt;load ($user-&gt;id);
+echo $john-&gt;name().' is in group '.$john-&gt;group-&gt;name;
+# user-&gt;user because of class path \user\user
+
+$database-&gt;user-&gt;group-&gt;delete ($group);</code></pre>
+<p>Instance of \user\user was just saved,loaded and deleted for example in mysql database table but you dont see any queries here. This is ORM.</p>

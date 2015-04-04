@@ -1,0 +1,6 @@
+<p>If you donw know which class belongs to object but you know that class handler is registered in orm than just:</p>
+<pre><code class="language-php">object $database-&gt;save (object $object [, integer $action=null]);</code></pre>
+<p>This method returns same object you passed back.</p>
+<p>And gives following possibility:</p>
+<pre><code class="language-php">$user = $database-&gt;save (new user ('John Smith'));</code></pre>
+<p>$action optionally can be specified to force save behavior. Allowed values for action are \db\query::insert and \db\query::update.</p>

@@ -1,0 +1,8 @@
+<p>To load single object by id for class from table use following:</p>
+<pre><code class="language-php">$database-&gt;path-&gt;to-&gt;class-&gt;load (mixed $id);</code></pre>
+<p>Example:</p>
+<pre><code>$product = $database-&gt;shop-&gt;product-&gt;load (2);
+echo $product-&gt;name;</code></pre>
+<p>In case if primary field is string like $currency-&gt;code:</p>
+<pre><code class="language-php">$currency = $database-&gt;cashier-&gt;currency-&gt;load ('USD');
+echo $currency-&gt;name;</code></pre>

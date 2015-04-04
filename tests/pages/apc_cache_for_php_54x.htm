@@ -1,0 +1,9 @@
+<p><strong>db.php</strong> requires <strong>apc_cache</strong> module's user variable caching functions by default. You can also override default caching engine but it is subject for further reading. A link for apc_cache installation instructions is here <a href="http://php.net/manual/en/apc.installation.php">http://php.net/manual/en/apc.installation.php</a>. On windows you just need to download proper php_apc.dll and enable it in php.ini by uncommenting line extension=php_apc.dll</p>
+<p>In linux it is a bit difficult but usually you will and up with this commands:</p>
+<pre><code>wget http://pecl.php.net/get/APC-3.1.9.tgz
+tar -xvf APC-3.1.9.tgz
+cd APC-3.1.9
+./configure -enable-apc -enable-apc-mmap -with-apxs2=/usr/sbin/apxs
+make
+make test
+make install</code></pre>

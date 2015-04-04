@@ -1,0 +1,12 @@
+<p>First initialize query object:</p>
+<pre><code class="language-php">$query = new \db\query ();</code></pre>
+<p>Than let us add custom select criteria:</p>
+<pre><code class="language-php">$query-&gt;where($database-&gt;hero-&gt;field('damage')."&gt;".\db\string($_REQUES['damage'])
+." or ".$database-&gt;hero-&gt;value('race',$_REQUEST['race']));</code></pre>
+<p>Run query:</p>
+<pre><code class="language-php">$heroes = $database-&gt;hero-&gt;load ($query);</code></pre>
+<p>You can also use:</p>
+<pre><code class="language-php">$query-&gt;where-&gt;string .= ' AND ...';</code></pre>
+<p>And also set something that is string or reacts properly on strval()</p>
+<pre><code class="language-php">$query-&gt;where = $my_strval_object;</code></pre>
+<p>With queries you can adjust order, limit, group, join, cache type, pager usage and debug option. Next chapters will show you these tricks. But make sure you have read previous chapter about query helper functions like \db\table::name and \db\table::field or \db\string or \db\id.</p>

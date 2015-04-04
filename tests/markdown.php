@@ -1,6 +1,9 @@
 <?php
 
+	const project = 'site';
+
 	include '../config.php';
+	include './parsedown.php';
 
 	$readme = system.'db/readme.md';
 
@@ -24,7 +27,8 @@
 	{
 		$level = strlen(before('-',$item))/4;
 		$title = between ('- [','](#', $item);
-		$name = between ('(#',')',$item);
+		$link = between ('(#',')',$item);
+		$name = str_replace(array("-"),"_",$link);
 		if ($level==0)
 		{
 			$parent = $name;
@@ -33,6 +37,7 @@
 		$page['id'] = null;
 		$page['name'] = $name;
 		$page['title'] = $title;
+		$page['link'] = $link;
 		$page['level'] = $level;
 		if ($level>0)
 		{
@@ -57,21 +62,47 @@
 		$next = $page;
 	}
 
+	$parsedown = new Parsedown();
+
+	$skin = str_replace("\\",'/',__DIR__).'/pages/';
 	foreach ($map as &$page)
 	{
-/*		$text = new \tool\text ($page['text']);
-		while ($text->next('**','**'))
+		$page['text'] = $parsedown->text ($page['text']);
+		//debug ($page['link']);
+		if ($page['text'])
 		{
-			debug ($text->result);
-		}*/
-		$on = false;
-		while (strpos($page['text'],'**')!==false)
-		{
-			$page['text'] = before('**',$page['text']).(!$on?'<b><i>':'</i></b>').after('**',$page['text']);
-			if ($on){$on=false;}else{$on=true;};
+			file_put_contents($skin.$page['name'].'.htm', $page['text']);
 		}
-		echo "<h1>".$page['title']."</h1>";
-		echo "<pre>".$page['text']."</pre>";
 	}
 
+	$import = array (
+		'solution'=>array(),
+		'projects'=>array(
+			'site'=>array(
+				'name'=>'site'),
+			'units'=>array(),
+			'pages'=>array(),
+			'menus'=>array()));
+	$project = &$import['projects']['site'];
+	$project['units']['menu.view.manual'] = array ('base'=>'menu.view','name'=>'manual','title'=>'Manual','global'=>true);
+	$project['menus']['menu.view.manual'] = array ('name'=>'menu.view.manual','items'=>array());
+
+	foreach ($map as &$page)
+	{
+		if ($page['text'])
+		{
+			$project['pages'][$page['name']] = array ('name'=>$page['name'],'link'=>$page['link'],'title'=>$page['title']);
+		}
+		$project['menus']['menu.view.manual']['items'][$page['name']] = array ('name'=>$page['name'],'title'=>$page['title'],'parent'=>$page['parent'], 'page'=>$page['name']);
+	}
+
+	include module ('menu');
+
+	$database = new \db\database (hostname, database, username, password);
+	$database->scan ('.core');
+	$database->scan ('.menu');
+
+
+	\core\import ($import);
+	//debug ($import);
 ?>
