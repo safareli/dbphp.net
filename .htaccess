@@ -6,7 +6,7 @@ RewriteCond %{REQUEST_URI} !/modules*
 RewriteCond %{REQUEST_URI} !/uploads*
 RewriteCond %{REQUEST_URI} !/projects*
 RewriteCond %{REQUEST_URI} !/skins*
-RewriteCond %{REQUEST_URI} !/tests*
+RewriteCond %{REQUEST_URI} !/concept*
 
 RewriteCond %{REQUEST_URI} !(.*)/$
 RewriteRule (.*)/(.*) /index.php?query=$1/$2
