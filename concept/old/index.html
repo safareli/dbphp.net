@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="styles/default.css"/>
+<link rel="stylesheet" href="styles/prism.css" data-noprefix/>
+<script src="scripts/jquery.js"></script>
+<script src="scripts/prism.js"></script>
+<meta charset="utf-8">
+<title>db.php - lightweight php orm for mysql and not only</title>
+</head>
+
+<body class="language-php">
+<div class="head">
+	<div class="title">
+		<h1 style="cursor:default">php orm</h1>
+		<span>db.php is a lightweight php orm not only for mysql</span>
+		<span style='line-height:150%;'><code>$DATABASE->FRUIT->APPLE->SAVE(NEW APPLE())</code></span>
+		<div style="float:right;margin-top:-90px;">
+			<a href="https://github.com/hazardland/db.php" target="_blank" title="Visit db.php on github">
+				<img src="./images/github.png">
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="main">
+<div class='page'>
+
+<h3>Lost in doctrine?</h3>
+<p>Do you want to start using new php orm after 15 minutes of knowing it? Are you tired of creating tables in phpmyadmin? Do you want full featured OOP model for your project? Are you lazy but have full scale complex projects to develop? Here is a single file <b>db.php</b> waiting to include in your project. You already know its' API, just you dont know that you know. Three terms to describe db.php are:
+<ul>
+	<li>You write class - db.php creates and syncs table structure for it</li>
+	<li>You dive in big projects without thinking where and how is data stored, you just concentrate on your business logic and save brain for life outside work</li>
+	<li>It is so simlpe you only need to remember few words like <b>save</b>, <b>load</b>, <b>delete</b></li>
+	<li>You dont know how good beer is made but behind it there is a world controling every tiny aspect of final taste in your bottle</li>
+</ul>
+</p>
+
+<h3>By topic</h3>
+<ul class="content">
+	<li><a href="#cheatsheet">PHPDoc cheatsheet</a>
+	<li><a href="#intro">Fastest half documented intro</a>
+	<li><a href="#init">Include and init</a>
+		<ul>
+			<li>Include</li>
+			<li>Init</li>
+		</ul>
+	</li>
+	<li><a href="#class">Attach class</a>
+		<ul>
+			<li>Define class</li>
+			<li>Add class handler</li>
+			<li>Access class handler</li>
+		</ul>
+	</li>
+	<li><a href="#namespace">Attach namespace</a>
+		<ul>
+			<li>Define namespace</li>
+			<li>Add all class handlers in namespace</li>
+			<li>Access scanned namespace class handlers</li>
+		</ul>
+	</li>
+
+	<li><a href="#update">Synchronate database</a></li>
+	<li><a href="#save">Save</a>
+		<ul>
+			<li>Object save methods and logic</li>
+			<li>Save samples</li>
+		</ul>
+	</li>
+	<li><a href="#load">Load</a>
+		<ul>
+			<li>Introduce</li>
+			<li>Load all</li>
+			<li>Load single by ID</li>
+			<li>Load single by other field(s)</li>
+			<li><a href="#query">Load by query</a></li>
+			<li><a href="#order">Query order</a></li>
+			<li><a href="#limit">Query limit</a></li>
+			<li><a href="#where">Query where</a></li>
+		</ul>
+	</li>
+	<li><a href="#relation">Relations</a>
+		<ul>
+			<li><a href="#one-to-one">One to one</a></li>
+			<li><a href="#one-to-many">One to many</a></li>
+		</ul>
+	</li>
+</ul>
+
+<h3>By API</h3>
+<p><code>$database->add()</code> - register class</p>
+<p><code>$database->scan()</code> - register all classes in namespace</p>
+<p><code>$database->update()</code> - synch model to database</p>
+<p><code>$database->save()</code> - save single object or mixed object array</p>
+<p><code>$database->path->to->class->save()</code> - save object of class or array of objects of
+class</p>
+<p><code>$database->path->to->class->load()</code> - load object of class or array of objects of
+class</p>
+<p><code>$database->path->to->class->delete()</code> - delete object of class or array of objects of
+class</p>
+
+<h3 id="cheatsheet">Cheat sheet</h3>
+<p>As in db.php every setting is collected from <a href="http://en.wikipedia.org/wiki/PHPDoc#Tags" target="_blank">PHPDoc Tags</a> or from PHPDoc annotations here are the all currently available directives for db.php:</p>
+<pre><code>/**
+ * table sample_foo (use table named sample_foo for this class)
+ * database simple_db (table is located in simple_db)
+ * link mysql_simpl4 (table is using link mysql_simpl4)
+ * prefix foo_ (table field prefix is foo_)
+ * order field [asc|desc] (table default order field/method is)
+ * charset utf8 (table default charset)
+ * engine myisam
+ * rename oldname (rename table 'oldname' to this current name if exists)
+ * cache none|load|user|long (select your cache type)
+ * scope project|solution (select your cache scope)
+ * ignore (ignore this table)
+ * deny insert|select|update|delete (deny some for this table)
+ */
+
+class foo
+{
+    /**
+     * required (this field is requrired)
+     * field/column some_field (use field named 'some_field' for this property)
+     * type integer|boolean|float|text|binary|date|time
+     * length 32 (column length)
+     * locale (specify if this field is localized)
+     * enum (if this field stores same type object list)
+     * unsigned (if column unsigned)
+     * zerofill (if zerofill for column)
+     * default 3 (default value)
+     * primary (if this field is primary)
+     * rename 'name_old' (rename field 'name_old' to 'name' if exists)
+     * first (this column is first)
+     * after id (this column goes after property 'id' column)
+     * ignore (ignore this field)
+     * foreign \db\bar (set up relation to different class object)
+     * deny insert|select|update (allow this field in insert qeuery)
+     * allow insert|select|update (allow this field in update qeuery)
+     * @var \test\master (define basic type of field or setup relation)
+     */
+    public $name;
+
+}
+
+class bar
+{
+
+}</code></pre>
+
+<h2 id="intro"><img src="./images/topic.png"> Galaxy</h2>
+<h3>galaxy.php</h3>
+<pre><code>namespace galaxy
+{
+	class star
+	{
+		public $id;
+		public $name;
+		public function __construct ($name=null)
+		{
+			$this->name = $name;
+		}
+	}
+
+	class planet
+	{
+		/**
+		* primary
+		* length 16
+		* @var string
+		*/
+		public $name;
+		/**
+		* type smallint
+		* @var integer
+		*/
+		public $order;
+		/**
+		* @var boolean
+		*/
+		public $water;
+		/**
+		* @var \galaxy\star
+		*/
+		public $star;
+		/**
+		* enum
+		* @var \galaxy\moon
+		*/
+		public $moons = array ();
+		public function __construct ($star=null, $name=null, $order=null, $water=false)
+		{
+			$this->name = $name;
+			$this->order = $order;
+			$this->star = $star;
+			$this->water = $water;
+		}
+		public function add (\galaxy\moon $moon)
+		{
+			$this->moons[$moon->id] = $moon;
+		}
+	}
+
+	//let us set cache type to 'load' as moon has no any sensitive data
+	//with this cache type database	caches results per script load
+	//in array
+	/**
+	* cache load
+	*/
+	class moon
+	{
+		public $id;
+		public $name;
+		public function __construct ($name=null)
+		{
+			$this->name = $name;
+		}
+	}
+}</code></pre>
+
+<h3>intro.php</h3>
+<pre><code>error_reporting(E_ALL^E_NOTICE);
+
+include 'd:/web/www/solution/system/db/db.php';
+include './galaxy.php';
+
+//setup database object and establish link to db server
+//please change this string with your actual db server settings
+//$database = new \db\database('mysql:127.0.0.1', 'galaxy_db', 'commet', 'pass1234');
+$database = new \db\database('mysql:127.0.0.1', 'galaxy_db', 'root', '1234');
+
+$database->scan ('\galaxy'); //scan all classes of namespace galaxy
+
+//in case you downloaded this script and are refreshing for the second time
+//let us truncate previously created table data
+$database->link()->query("truncate ".$database->galaxy->star->name());
+$database->link()->query("truncate ".$database->galaxy->planet->name());
+$database->link()->query("truncate ".$database->galaxy->moon->name());
+//link returns default link, but they can be many
+
+$database->update(); //create tables and fields (magic)
+//remember by this function you dont need to create any tables manyally
+//to run this script just specify link, user and previously created db name
+//(or user with create db permission and $database will create specified db if not exists)
+
+//create some star alpha
+$alpha = $database->save(new \galaxy\star('alpha'));
+//and its planet xxx which has water
+$database->save (new \galaxy\planet($alpha,'xxx',1,true),\db\query::insert);
+//why ,\db\query::insert ? because planet::name is declared as primary in galaxy.php
+//database asumes that the object already exists and will try to update
+//but we know that it does not exist and we force him to insert planet instead of update
+//by specifing \db\query::insert mode
+
+//create sun and save
+$sun = $database->save(new \galaxy\star ('sun')); //or $database->galaxy->star->save()
+
+//add some our solar system planets
+$database->save (new \galaxy\planet($sun,'mars',4,true),\db\query::insert); //has water drops
+$database->save (new \galaxy\planet($sun,'venus',2,false),\db\query::insert);
+$database->save (new \galaxy\planet($sun,'mercury',1,false),\db\query::insert);
+$database->save (new \galaxy\planet($sun,'earth',3,true),\db\query::insert); //has water
+
+$result = $database->galaxy->planet->load();
+//\db\debug ($result); //very usefull function! if you download code will see it in action
+if ($result['xxx'] && $result['earth'])
+{
+	//as we defined planet::name as primary property for planet
+	//planet::name value is used as $result array key on planets load
+	//so as ->load returns all planets available in table we will have
+	//$result['xxx'] and $result['earth'] available in result
+	foreach ($result as $planet)
+	{
+		//echo $planet->star->name.", ";
+		//echoes something like alpha, sun, sun, sun, sun,
+		//$planet->star is object because we defined it as @var \galaxy\star
+		//and this means realtion for db.php
+	}
+}
+
+//simply load all sun's planets with water
+$result = $database->galaxy->planet->load (\db\by('star',$sun)->by('water',true));
+//result will be in order mars, earth
+if ($result['mars'])
+{
+	//let us create sum moons
+	//planet::moons has 'enum' flug so it can support many to many relation
+	$result['mars']->add ($database->save(new \galaxy\moon('fobos')));
+	$result['mars']->add ($database->save(new \galaxy\moon('deimos')));
+	$result['mars']->add ($database->save(new \galaxy\moon('moon')));
+	$database->save ($result['mars']);
+}
+unset ($result);
+//my appologies as I attached moon named moon to mars
+
+//load all moons to fill db cache
+//as we setted up cache 'load' for moons table
+//moons will be available in cache if we load all them
+$database->galaxy->moon->load();
+//this is useful because in other case on every planet load
+//moon load queries will be executed as planet::moons holds
+//\galaxy\moon objects with many to many relation type (enum)
+
+//well let us load all sun's planets with life in correct order now
+$table = &$database->galaxy->planet; //hold planet class handler in $planets
+$query = new \db\query();
+$query->where->string = $table->field('star')."='".\db\id($sun)."' and ".$table->value('water',true);
+$query->order->field('order');//you can ad multiple fields with order methods
+$query->limit->count = 10;
+
+$database->debug(); //this is to debug what query will be used by database
+$planets = $table->load($query);
+$database->debug(false); //turn off debug query
+/*GENERATED QUERY:
+SELECT `galaxy_db`.`galaxy_planet`.`name`, `galaxy_db`.`galaxy_planet`.`order`, `galaxy_db`.`galaxy_planet`.`water`, `galaxy_db`.`galaxy_planet`.`star`, `galaxy_db`.`galaxy_star`.`id`, `galaxy_db`.`galaxy_star`.`name`, `galaxy_db`.`galaxy_planet`.`moons`
+FROM `galaxy_db`.`galaxy_planet`
+LEFT JOIN `galaxy_db`.`galaxy_star` ON `galaxy_db`.`galaxy_planet`.`star`=`galaxy_db`.`galaxy_star`.`id`
+WHERE `galaxy_db`.`galaxy_planet`.`star`='2' AND `galaxy_db`.`galaxy_planet`.`water`='1'
+ORDER BY `galaxy_db`.`galaxy_planet`.`order`ASC
+LIMIT 10
+*/
+
+\db\debug($planets); //display result
+/*RESULT:
+array  (
+    'earth'  =
+    galaxy\planet::__set_state(array(
+          'name'  =  'earth',
+          'order'  =  3,
+          'water'  =  true,
+          'star'  =
+        galaxy\star::__set_state(array(
+              'id'  =  2,
+              'name'  =  'sun',
+        )),
+          'moons'  =
+        array  (
+        ),
+    )),
+    'mars'  =
+    galaxy\planet::__set_state(array(
+          'name'  =  'mars',
+          'order'  =  4,
+          'water'  =  true,
+          'star'  =
+        galaxy\star::__set_state(array(
+              'id'  =  2,
+              'name'  =  'sun',
+        )),
+          'moons'  =
+        array  (
+            1  =
+            galaxy\moon::__set_state(array(
+                  'id'  =  1,
+                  'name'  =  'fobos',
+            )),
+            2  =
+            galaxy\moon::__set_state(array(
+                  'id'  =  2,
+                  'name'  =  'deimos',
+            )),
+            3  =
+            galaxy\moon::__set_state(array(
+                  'id'  =  3,
+                  'name'  =  'moon',
+            )),
+        ),
+    )),
+)
+*/
+if ($planets)
+{
+	//so here we have first earth than mars in $planets array
+}
+
+//now lets load mars and remove moon named moon
+$mars = $database->galaxy->planet->load('mars');
+//as planet::name is primary we can load object by primary key
+
+unset($mars->moons[end($mars->moons)->id]); //as moon named moon was last
+$database->save ($mars);
+
+//the world is saved now
+</code></pre>
+
+<div class="hint"><img src="./images/save.png">If you want to save the world on your computer feel free to download <a href="./files/galaxy.zip">galaxy.zip</a> and dont forget to change connection parameters.</div>
+
+<h2 id="init"><img src="./images/topic.png"> Include and init</h2>
+
+<h3>Include</h3>
+<pre><code>include './db.php'</code></pre>
+
+<h3>Init</h3>
+<pre><code>//SIMPLE INIT
+$database = new \db\database('mysql:host=127.0.0.1', 'my_db', 'my_user', 'my_pass');
+
+//HARD INIT
+$database = new \db\database ('my_db', new \db\link ('my_mysql_link', 'mysql:host=127.0.0.1', 'my_user', 'my_pass'));
+
+//INSANE INIT
+$database = new \db\database ();
+$database->link (new \db\link ('my_mysql_link', 'mysql:host=127.0.0.1', 'my_user', 'my_pass'));
+$database->link (new \db\link ('my_odbc_link', 'odbc:my_odbc_alias', 'my_user', 'my_pass'));
+//AS MANY LINKS AS YOU LIKE
+//AFTER THAT YOU SPECIFY link name TO table AND database name TO table
+//AND EVERYTHING WORKS
+</code></pre>
+
+<h2 id="class"><img src="./images/topic.png"> Attach class</h2>
+
+<h3>Define class</h3>
+
+<pre><code>class product
+{
+    public $id;
+    public $name;
+    public function __construct ($name=null)
+    {
+    	$this->name = $name;
+    }
+}</code></pre>
+<div class="hint"><img src="./images/hint.png">Note that you can control any standart sql supported table and field related settings (like table engine or field type or length). It will be discussed below.</div>
+<h3>Add class handler</h3>
+<pre><code>//SIMPLE ADD
+$database->add('product');
+
+//ADD CLASS FROM NAMESPACE
+$database->add('\fruit\apple');
+//OR
+$database->add('\\fruit\\apple');
+
+//SIMPLIEST WAY
+$database->add('.fruit.apple'); //IF YOU DONT LIKE '\\'
+</code></pre>
+
+<h3>Access class handler</h3>
+<p class="code">After adding class to database there are several ways to access handlers. One beautiful way is <code>$database->path->to->class</code>. For example if your class is <code>\fruit\apple</code> you can access its handler at <code>$database->fruit->apple</code> or if your class is <code>product</code> you can access it at <code>$database->product</code></p>
+<pre><code>//SIMPLE WAY TO ACCESS HANDLER
+$database->product->save(new product());
+
+//UNUSUALL WAY TO ACCESS HANDLER
+$database->table('.product')->save(new product());
+
+//SIMPLE WAY TO ACCESS HANDLER FOR NAMESPACED CLASS
+$database->fruit->apple->save (new apple());
+
+//UNUSUALLY ACCESS FOR NAMESPACED CLASS
+$database->table('\fruit\apple')->save (new apple());
+//OR
+$database->table('\\fruit\\apple')->save (new apple());
+//OR
+$database->table('.fruit.apple')->save (new apple());
+</code></pre>
+
+<h2 id="namespace"><img src="./images/topic.png"> Attach namespace</h2>
+
+<h3>Define namespace</h3>
+<pre><code>namespace fruit
+{
+	class apple
+	{
+	    public $id;
+	    public $name;
+	    public function __construct ($name=null)
+	    {
+	    	$this->name = $name;
+	    }
+	}
+	class bannana
+	{
+	    public $id;
+	    public $name;
+	    public function __construct ($name=null)
+	    {
+	    	$this->name = $name;
+	    }
+	}
+}</code></pre>
+
+<h3>Add all class handlers from namespace</h3>
+<pre><code>$database->scan('.apple');
+//OR
+$database->scan('\apple');
+//OR
+$database->scan('\\apple');
+</code></pre>
+
+<h3>Access scanned namespace class handlers</h3>
+<pre><code>//SIMPLE
+$database->fruit->apple->save(new apple());
+$database->fruit->bannana->save(new bannana());
+
+//UNUSUALL
+$database->table('.fruit.apple')->save(new apple());
+$database->table('.fruit.bannana')->save(new bannana());
+
+//MORE UNUSUALL
+$database->table('\\fruit\\apple')->save(new apple());
+$database->table('\\fruit\\bannana)'->save(new bannana());
+
+//MORE UNUSUALL AND NOT RECOMENDED BECAUSE OF \t \n \r
+$database->table('\fruit\apple')->save(new apple());
+$database->table('\fruit\bannana')->save(new bannana());</code></pre>
+
+<h3>Simple attach class to database</h3>
+<pre><code>$database->add('product');</code></pre>
+
+<h2 id="update"><img src="./images/topic.png"> CREATE/MODIFY PHYSICAL DATABASES/TABLES/FIELDS ON THE FLY</h2>
+<p class="code">After you have done attaching your classes to database object simply run <code>$database->update()</code> and your database will be created according to your class definitions.</p>
+<pre><code>//SIMPLE CASE
+$database->update();
+//YOUR DEFINED TABLES WILL BE SYNCHED TO YOUR CLASSES USING THEIR ITS DB LINKS
+
+//NOT SIMPLE CASE
+$database->update('./path/to/my_create_or_alter.sql');
+//IF FILE PARAMETER PASSED CREATE/ALTER SQL QUERIES WILL BE SAVED TO FILE
+//INSTEAD OF EXECUTING
+</code></pre>
+<div class="hint"><img src="./images/hint.png">Remember you can control any STANDART SQL database/table/field settings like what type of engine must table use or what type of encoding must table use so on. But we will cover it later.</div>
+
+
+<h2 id="save"><img src="./images/topic.png"> Save</h2>
+<h3>Object save methods and logic</h3>
+
+<p class="code">There are two main methods for object(s) saving <code>$database->save()</code> and <code>$database->path->to->class->save()</code>.</p>
+
+<p class="code"><code>$database->path->to->class->save()</code> can take single object of only its class or array of only its class objects like <code>$database->product->save(new product())</code> and <code>$datbase->product->save(array(new product(),new product())).</code>
+
+<p class="code"><code>$database->save()</code> can also save single object or array of objects but it can save any type of objects known for $database. Like <code>$database->save(array(new apple(),new product()))</code></p>
+
+<p>They both can work with object refferences that means if you are saving $product after save you will have any modifications presented in $product variable (If any). For example after object's first time save you will have id value in object's id field.</p>
+
+<p class="code"><code>$database->path->to->class->save()</code> <b>RETURN</b> - TRUE on success FALSE on failure. In case of object array passed it will return FALSE if one of any object save failed, but will try to save every object after fail.</p>
+
+<p class="code"><code>$database->save()</code> <b>RETURN</b> - In case of single object passed and save succeded will return same object. In case save failed will return FALSE. It is usefull for doing something like <code>$product = $database->save(new product())</code>. In case of object array passed it will return TRUE on success or FALSE on fail if any object save failed but will try to save every following object after fail.</p>
+
+<p class="code">The principle behind both <b>save methods</b> work is simple. If they find object's id not <b>NULL</b> they will update object record in table for object's id. If they find object id is <b>NULL</b> they will insert object into object's table by default. But if you want to insert object with already defined id you can specify save method that you want insert query to be used like <code>$database->save($product,\db\query::insert)</code></p>
+
+<h3>Save samples</h3>
+<pre><code>//SIMPLE SAVE
+$database->save(new product('Apple'));
+
+//DIRECT SAVE
+$database->product->save(new product('Apple'));
+
+//GUARANTED SAVE
+if ($database->product->save(new product('Apple')))
+{
+	//It is accomplished
+}
+
+//SAVE RESULT
+$product = $database->save(new product('Bannana'));
+if ($product)
+{
+	echo $product->id; //echos something like '1'
+}
+
+//SAVE SAME TYPE OBJECT ARRAY
+$products = array ( new product('Apple'),
+					new product('Bannana'),
+					new product('Potato'));
+
+if ($database->product->save($products))
+{
+	foreach ($products as $product)
+	{
+		echo $product->id.":".$product->name." ";
+	}
+	//echos something like 1:Apple 2:Bannana 3:Potato
+}
+
+//SAVE MIXED TYPE OBJECT ARRAY
+$objects = array ( new \fruit\apple('Apple'),
+					new \fruit\bannana('Bannana'),
+					new product('Potato'));
+
+if ($database->save($objects))
+{
+	//SUCCESS
+}
+
+//FORCE SAVE
+$product = new product ('The Apple');
+$product->id = 1;
+$database->product->save ($product, \db\query::insert);
+//INSERTS OBJECT WITH ID '1'
+
+//SO THE DIFFERENCE BETWEEN $database->save() AND $database->product->save()
+//IS THAT $database->save() WILL RETURN SAME OBJECT ON SUCCESS (ON SINGLE OBJECT SAVE)
+//AND THAT $database->save() CAN SAVE MIXED OBJECTS ARRAY
+</code></pre>
+
+<h2 id='load'><img src='./images/topic.png'>Load</h2>
+<h3>Introduce</h3>
+<p class="code">Currently <code>$database->path->to->class->load()</code> can accept 3 types of pamareters.
+<ul>
+	<li>No parmeter - Load all objects</li>
+	<li>object id - Load only one object</li>
+	<li>\db\by instance - Load by simple criteria</li>
+	<li>\db\query instance - Dive in full query</li>
+</ul>
+</p>
+<p><b>RETURN</b> - FALSE on failure. Single object if id specified. Array in other cases.</p>
+
+<h3>Load all</h3>
+<p>Let us begin with simple example</p>
+<pre><code>$result = $database->fruit->apple->load();
+if ($result)
+{
+	foreach ($result as $apple)
+	{
+		//do some
+	}
+}</code></pre>
+
+<h3>Load by ID</h3>
+<pre><code>$item = $database->fruit->apple->load(1);
+if ($item)
+{
+	echo $item->name;
+}</code></pre>
+
+<h3>Load by OTHER FIELD(S)</h3>
+<pre><code>$item = $database->fruit->apple->load(\db\by('color','red')->by('ripe',true)->
+                                                     by('owner',$user));
+if ($result)
+{
+	foreach ($result as $apple)
+	{
+		//this apple has color red and ripe true and user of $user->id
+		//$user is object
+	}
+}</code></pre>
+
+<h3 id="query">Very basic query example</h3>
+<pre><code>$query = new \db\query ();
+
+&$apples = &$database->fruit->apples;
+//save reference for good readability
+$query->where($apples->field('color')."='red'"."and ".$apples->field('user')."'".\db\id($user)."'");
+$query->order ('color','desc');
+
+//So this is
+$result = $apples->load ($query);
+
+if ($result)
+{
+	foreach ($result as $apple)
+	{
+		//this apple has color red and ripe true and user of $user->id
+		//$user is object
+	}
+}</code></pre>
+
+<h3 id="order">Query order</h3>
+<p class="code">So any table handler <code>load</code> method can take <code>\db\query</code> object. Query object carries by itself 3 objects known as <code>query::where</code>, <code>query::order</code> and <code>query::limit</code>. You can access them dirrectly or use query methods with same names for simple missions.</p>
+<pre><code>//The very simple and not recomended usage
+$query->order->field = 'color';
+$query->order->method = 'desc';
+
+//Some still simple usage
+$query->order->field ('color');
+$query->order->method ('asc');
+//Some little benefit
+$query->order->method->swap(); //Now order method is 'desc'
+
+//Order with multi fields
+$query->order->add ('color','desc');
+$query->order->add ('name', 'asc');
+$query->order->add ('product');
+//No we have color desc, name asc, product asc as order
+
+//Well this is also possible
+$query->order->add (new \db\order('color','desc'));
+$query->order->add (new \db\order('name'));
+
+//But thats not all if you are not still confused
+//You can also try:
+$query->order ('color','asc');
+//Order method parameter is required here
+
+//If you want to use method->swap
+//Instead of passing method (desc or asc) by string
+//Pass them as:
+new \db\method('asc')
+new \db\method('desc')
+//Or
+\db\method(\db\method::asc)
+\db\method(\db\method::desc)
+
+//Thats almost all with order
+//Have a nice day
+</code></pre>
+
+<h3 id="limit">Query limit</h3>
+<p class="code">What you have to remember is there exists <code>limit->from</code> and <code>limit->count</code>. They are respectively used for generating limit string 'limit {from},{count}' or 'limit {count}'</p>
+<pre><code>//Limit only count
+$query->limit (5)
+//Means limit 5
+
+$query->limit(10, 5)
+//Means limit 10, 5</code></pre>
+<p>Conclusion if only one integer passed it is assumed as 'count'. If two integers are passed they are assumed as from and count in this order.</p>
+<p>Limit is also available using <code>query::limit</code> object:</p>
+<pre><code>$query->limit->from = 10;
+$query->limit->count = 5;</code></pre>
+
+<h2 id="relation">Relations</h2>
+<h3 id="one-to-one">One to one/One to many</h3>
+<p class="code">We have some namspace in sample.php. Where user::group property is related to class group. Relation setted up using PHPDoc comment tag <code>@var</code>. We simply specify in <code>public $group</code> documentation that this property is instance of <code>class group</code> with group class full path as result we have <code>@var \core\group</code> thats all. In this case group class is located in sample namespace core</p>
+<pre><code>namespace core
+{
+	class group
+	{
+		public $id;
+		public $name;
+	}
+
+	class user
+	{
+		public $id;
+		public $name;
+		/**
+		* @var \core\group
+		*/
+		public $group;
+	}
+}</code></pre>
+
+<h3 id="one-to-many">One to many</h3>
+<p>Before we finish article you can discover samples provided on your github page: <a href='https://github.com/hazardland/db.php/tree/master/samples'>https://github.com/hazardland/db.php/tree/master/samples</a></p>
+
+<h3><a href="http://www.youtube.com/watch?v=SMTz9nIUkGc" target="_blank">Would you like to know more?</a></h3>
+<p>Young people from all over the globe are joining to fight for the future:</p>
+<p><iframe width="480" height="360" src="https://www.youtube.com/embed/SMTz9nIUkGc?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></p>
+
+</div>
+
+</div>
+
+<div class="foot">
+	<div class="cast">
+	</div>
+	<img src="./images/blackhole.png" style="display:block;cursor:none;margin-left:auto;margin-right:auto;">
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46751658-1', 'dbphp.net');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>
